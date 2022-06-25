@@ -15,6 +15,7 @@ const port = process.env.PORT;
 // Require Model
 const Users = require('./models/userSchema.js');
 const Message = require('./models/msgSchema');
+const authenticate = require('./middleware/authenticate');
 
 // These Methods are used to get Data and Cookies from Frontend
 app.use(express.json());
@@ -111,6 +112,11 @@ app.post('/message', async (req, res) => {
 app.get('/logout', (req, res) => {
     res.clearCookie("jwt", {path: '/'})
     res.status(200).send("User Logged Out")
+})
+
+// Authentication
+app.get('/auth', authenticate, (req, res) => {
+
 })
 
 // SERVER RUN
